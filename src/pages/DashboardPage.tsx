@@ -6,27 +6,14 @@ import { SpentBreakdown } from "../components/dashboard/SpentBreakdown";
 import { Cards } from "../components/dashboard/Cards";
 import { CompareChart } from "../components/dashboard/CompareChart";
 import { Goals } from "../components/dashboard/Goals";
-import {useEffect, useState} from "react";
-import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { useLoaderData, useNavigate } from "react-router-dom";
 
-const DashBoardPage = () => {
+const DashboardPage = () => {
     const navigate = useNavigate();
+    const user = useLoaderData();
 
     const [sidebarOpen, setSidebarOpen] = useState(false);
-    const [currentUser, setCurrentUser] = useState<string>("");
-
-    useEffect(() => {
-        fetch(import.meta.env.VITE_BACKEND_API + "/auth2/current-user", {
-            method: "GET",
-            credentials: "include"
-        }).then(async res => {
-            if (!res.ok) {
-                navigate("/login");
-            }
-            const data = await res.json();
-            setCurrentUser(data.username);
-        });
-    }, []);
 
     const logout = async () => {
         await fetch(import.meta.env.VITE_BACKEND_API + "/auth2/logout", {
@@ -68,7 +55,7 @@ const DashBoardPage = () => {
                             <div className="flex items-center gap-2">
                                 <button className="flex items-center gap-2 text-gray-600 hover:text-gray-900">
                                     <User className="w-4 h-4" />
-                                    <span className="hidden sm:inline">{currentUser}</span>
+                                    <span className="hidden sm:inline">{user.username}</span>
                                 </button>
                                 <button
                                     className="p-1 ml-1 text-xs text-gray-400 hover:text-red-600 hover:bg-gray-100 rounded"
@@ -121,4 +108,4 @@ const DashBoardPage = () => {
     );
 };
 
-export default DashBoardPage;
+export default DashboardPage;

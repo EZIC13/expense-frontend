@@ -1,7 +1,7 @@
 import '../tailwind.css'
 import { useState } from "react";
-import Login from "../components/Login";
-import Register from "../components/Register";
+import Login from "../components/login/Login.tsx";
+import Register from "../components/login/Register.tsx";
 
 const LoginPage = () => {
     const [isLogin, setIsLogin] = useState(true);
