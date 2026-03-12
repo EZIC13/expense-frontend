@@ -14,7 +14,7 @@ const Register = () => {
 
         const toastId: string = toast.loading("Signing up...", toastOptions);
 
-        const res = await fetch(import.meta.env.VITE_BACKEND_API + "/auth2/create-user", {
+        const res = await fetch(import.meta.env.VITE_BACKEND_API + "/auth/create-user", {
             method: "POST",
             body: JSON.stringify({
                 "username": username,

@@ -16,7 +16,7 @@ const DashboardPage = () => {
     const [sidebarOpen, setSidebarOpen] = useState(false);
 
     const logout = async () => {
-        await fetch(import.meta.env.VITE_BACKEND_API + "/auth2/logout", {
+        await fetch(import.meta.env.VITE_BACKEND_API + "/auth/logout", {
             method: "POST",
             credentials: "include"
         });

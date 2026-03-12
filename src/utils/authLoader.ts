@@ -1,7 +1,7 @@
 import {redirect} from "react-router-dom";
 
 export const authLoader = async () => {
-    const response = await fetch(import.meta.env.VITE_BACKEND_API + "/auth2/current-user", {
+    const response = await fetch(import.meta.env.VITE_BACKEND_API + "/auth/current-user", {
         method: "GET",
         credentials: "include"
     });
