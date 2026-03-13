@@ -1,27 +1,27 @@
 import { Search, User, Calendar, Menu } from "lucide-react";
-import { Input } from "../components/dashboard/input";
-import { Sidebar } from "../components/dashboard/Sidebar";
-import { IncomeChart } from "../components/dashboard/IncomeChart";
-import { SpentBreakdown } from "../components/dashboard/SpentBreakdown";
-import { Cards } from "../components/dashboard/Cards";
-import { CompareChart } from "../components/dashboard/CompareChart";
-import { Goals } from "../components/dashboard/Goals";
+import { Input } from "../components/dashboard_OLD/input";
+import { Sidebar } from "../components/dashboard_OLD/Sidebar";
+import { IncomeChart } from "../components/dashboard_OLD/IncomeChart";
+import { SpentBreakdown } from "../components/dashboard_OLD/SpentBreakdown";
+import { Cards } from "../components/dashboard_OLD/Cards";
+import { CompareChart } from "../components/dashboard_OLD/CompareChart";
+import { Goals } from "../components/dashboard_OLD/Goals";
 import { useState } from "react";
-import { useLoaderData, useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 
-const DashboardPage = () => {
-    const navigate = useNavigate();
-    const user = useLoaderData();
+const DashboardPage_OLD = () => {
+    // const navigate = useNavigate();
+    // const user = useLoaderData();
 
     const [sidebarOpen, setSidebarOpen] = useState(false);
 
-    const logout = async () => {
-        await fetch(import.meta.env.VITE_BACKEND_API + "/auth/logout", {
-            method: "POST",
-            credentials: "include"
-        });
-        navigate("/login");
-    }
+    // const logout = async () => {
+    //     await fetch(import.meta.env.VITE_BACKEND_API + "/auth/logout", {
+    //         method: "POST",
+    //         credentials: "include"
+    //     });
+    //     navigate("/login");
+    // }
 
     return (
         <div className="min-h-screen bg-gray-100 text-black flex">
@@ -55,12 +55,12 @@ const DashboardPage = () => {
                             <div className="flex items-center gap-2">
                                 <button className="flex items-center gap-2 text-gray-600 hover:text-gray-900">
                                     <User className="w-4 h-4" />
-                                    <span className="hidden sm:inline">{user.username}</span>
+                                    <span className="hidden sm:inline">USERNAME</span>
                                 </button>
                                 <button
                                     className="p-1 ml-1 text-xs text-gray-400 hover:text-red-600 hover:bg-gray-100 rounded"
                                     title="Logout"
-                                    onClick={logout}
+                                    // onClick={logout}
                                     aria-label="Logout"
                                 >
                                     &#x2715;
@@ -108,4 +108,4 @@ const DashboardPage = () => {
     );
 };
 
-export default DashboardPage;
+export default DashboardPage_OLD;
