@@ -1,8 +1,8 @@
 import { Search, User, Calendar, Menu } from "lucide-react";
 import { Input } from "../components/dashboard_OLD/input";
 import { Sidebar } from "../components/dashboard_OLD/Sidebar";
-import { IncomeChart } from "../components/dashboard_OLD/IncomeChart";
-import { SpentBreakdown } from "../components/dashboard_OLD/SpentBreakdown";
+import SpendingGraph from "../components/dashboard_OLD/SpendingGraph.tsx";
+import SpendingBreakdown from "../components/dashboard_OLD/SpendingBreakdown.tsx";
 import { Cards } from "../components/dashboard_OLD/Cards";
 import { CompareChart } from "../components/dashboard_OLD/CompareChart";
 import { Goals } from "../components/dashboard_OLD/Goals";
@@ -85,8 +85,8 @@ const DashboardPage_OLD = () => {
 
                     {/* Top Row - Income, Spent, Cards */}
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 mb-6 md:mb-8">
-                        <IncomeChart />
-                        <SpentBreakdown />
+                        <SpendingGraph />
+                        <SpendingBreakdown />
                         <Cards />
                     </div>
 
