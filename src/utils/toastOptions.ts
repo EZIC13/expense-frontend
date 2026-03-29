@@ -1,9 +1,11 @@
-export const toastOptions = {
+const toastOptions = {
     style: {
-        background: "#1f2937",  // Tailwind's gray-800
-        color: "#fff",
+        background: "#fff",
+        color: "#111827", // Tailwind gray-900
         borderRadius: "8px",
         padding: "16px",
     },
     className: "shadow-lg text-sm", // Optional Tailwind classes
 };
+
+export default toastOptions

@@ -1,7 +1,7 @@
 import '../tailwind.css'
 import { useState } from "react";
 import { toast } from "react-hot-toast";
-import { toastOptions } from "../utils/toastOptions.ts";
+import toastOptions from "../utils/toastOptions.ts";
 import { useNavigate } from "react-router-dom";
 
 const RegisterPage = () => {
@@ -35,35 +35,27 @@ const RegisterPage = () => {
     };
 
     return (
-        <div className="flex min-h-screen flex-col justify-center px-6 py-12 lg:px-8 bg-gray-900">
+        <div className="flex min-h-screen flex-col justify-center px-6 py-12 lg:px-8 bg-white">
 
             <div className="sm:mx-auto sm:w-full sm:max-w-sm">
                 <img className="mx-auto h-10 w-auto" src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=600" alt="Site Logo"/>
-                <h2 className="mt-10 text-center text-2xl font-bold tracking-tight text-white">Register a new account</h2>
+                <h2 className="mt-10 text-center text-2xl font-bold tracking-tight text-gray-900">Register a new account</h2>
             </div>
 
             <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
                 <form className="space-y-6" onSubmit={handleSubmit}>
 
-                    {/* Email */}
-                    {/*<div>*/}
-                    {/*    <label className="block text-sm font-medium text-white">Email</label>*/}
-                    {/*    <div className="mt-2">*/}
-                    {/*        <input value={email} onChange={(e) => setEmail(e.target.value)} type="email" required className="block w-full rounded-md bg-gray-800 px-3 py-1.5 text-base text-white outline-1 outline-offset-1 outline-gray-600 placeholder:text-gray-400 focus:outline-2 focus:outline-indigo-600 sm:text-sm"/>*/}
-                    {/*    </div>*/}
-                    {/*</div>*/}
-
                     <div>
-                        <label className="block text-sm font-medium text-white">Username</label>
+                        <label className="block text-sm font-medium text-gray-900">Username</label>
                         <div className="mt-2">
-                            <input value={username} onChange={(e) => setUsername(e.target.value)} type="text" required className="block w-full rounded-md bg-gray-800 px-3 py-1.5 text-base text-white outline-1 outline-offset-1 outline-gray-600 placeholder:text-gray-400 focus:outline-2 focus:outline-indigo-600 sm:text-sm"/>
+                            <input value={username} onChange={(e) => setUsername(e.target.value)} type="text" required className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:outline-indigo-600 sm:text-sm"/>
                         </div>
                     </div>
 
                     <div>
-                        <label className="block text-sm font-medium text-white">Password</label>
+                        <label className="block text-sm font-medium text-gray-900">Password</label>
                         <div className="mt-2">
-                            <input value={password} onChange={(e) => setPassword(e.target.value)} type="password" required className="block w-full rounded-md bg-gray-800 px-3 py-1.5 text-base text-white outline-1 outline-offset-1 outline-gray-600 placeholder:text-gray-400 focus:outline-2 focus:outline-indigo-600 sm:text-sm"/>
+                            <input value={password} onChange={(e) => setPassword(e.target.value)} type="password" required className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:outline-indigo-600 sm:text-sm"/>
                         </div>
                     </div>
 
@@ -75,7 +67,7 @@ const RegisterPage = () => {
 
             <p className="mt-10 text-center text-sm text-gray-400">
                 Already have an account?{" "}
-                <a href="/login" className="font-semibold text-indigo-400 hover:text-indigo-300">Sign In</a>
+                <a href="/login" className="font-semibold text-indigo-600 hover:text-indigo-500">Sign In</a>
             </p>
 
         </div>
