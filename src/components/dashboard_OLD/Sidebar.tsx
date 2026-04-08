@@ -1,12 +1,8 @@
-import { LayoutGrid, Wallet, CreditCard, PieChart, Target, ArrowLeftRight, X } from "lucide-react";
+import { LayoutGrid, CreditCard, X } from "lucide-react";
 
 const menuItems = [
   { icon: LayoutGrid, label: "Overview", active: true },
-  { icon: Wallet, label: "Accounts", active: false },
-  { icon: CreditCard, label: "Cards", active: false },
-  { icon: PieChart, label: "Budgets", active: false },
-  { icon: Target, label: "Goals", active: false },
-  { icon: ArrowLeftRight, label: "Transactions", active: false },
+  { icon: CreditCard, label: "Transactions", active: false },
 ];
 
 interface SidebarProps {
@@ -45,8 +41,8 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
               key={item.label}
               className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-colors ${
                 item.active
-                  ? "bg-emerald-50 text-emerald-600"
-                  : "text-gray-600 hover:bg-gray-50"
+                    ? "bg-cb-blue/8 text-cb-blue"
+                    : "text-gray-600 hover:bg-cb-blue/6 hover:text-cb-blue"
               }`}
               onClick={() => onClose()}
             >
