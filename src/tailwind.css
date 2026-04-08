@@ -1,1 +1,7 @@
 @import "tailwindcss";
+
+@theme {
+    --color-cb-blue: #0052ff;
+    --color-cb-blue-hover: #0046db;
+    --color-cb-black: #0a0b0d;
+}
