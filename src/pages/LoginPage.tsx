@@ -38,7 +38,7 @@ const LoginPage = () => {
         <div className="flex min-h-screen flex-col justify-center px-6 py-12 lg:px-8 bg-white">
 
             <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-                {/*<img className="mx-auto h-10 w-auto" src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=600" alt="Site Logo"/>*/}
+                <img className="mx-auto h-10 w-auto" src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=600" alt="Site Logo"/>
                 <h2 className="mt-10 text-center text-2xl font-bold tracking-tight text-cb-black">Sign in to your account</h2>
             </div>
 

@@ -26,7 +26,7 @@ const DashboardPage_OLD = () => {
     return (
         <div className="min-h-screen bg-gray-100 text-black flex">
             {/* Sidebar */}
-            <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
+            <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} userName="Username" />
 
             {/* Main Content */}
             <div className="flex-1 p-4 md:p-8">

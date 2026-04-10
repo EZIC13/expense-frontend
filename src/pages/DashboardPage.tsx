@@ -1,12 +1,11 @@
 import { useState } from "react";
-import {useLoaderData, useNavigate} from "react-router-dom";
-import type { Transaction } from "../models/transaction";
-import {Sidebar} from "../components/dashboard_OLD/Sidebar.tsx";
-import {Calendar, Menu, Search, User} from "lucide-react";
-import {Input} from "../components/dashboard_OLD/input.tsx";
-import SpendingGraph from "../components/dashboard_OLD/SpendingGraph.tsx";
-import SpendingBreakdown from "../components/dashboard_OLD/SpendingBreakdown.tsx";
+import { useLoaderData } from "react-router-dom";
+import { Sidebar } from "../components/dashboard_OLD/Sidebar.tsx";
+import { Menu } from "lucide-react";
 import RecentTransactionsTable from "../components/RecentTransactionsTable.tsx";
+import type { Transaction } from "../models/transaction.ts";
+import SpendingBreakdown from "../components/dashboard_OLD/SpendingBreakdown.tsx";
+import SpendingGraph from "../components/dashboard_OLD/SpendingGraph.tsx";
 
 const transactions: Transaction[] = [
     {
@@ -32,84 +31,41 @@ const transactions: Transaction[] = [
 ];
 
 const DashboardPage = () => {
-    const navigate = useNavigate();
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-    const user = useLoaderData();
-
-    const logout = async () => {
-        await fetch(import.meta.env.VITE_BACKEND_API + "/auth/logout", {
-            method: "POST",
-            credentials: "include"
-        });
-        navigate("/login");
-    }
+    const user = useLoaderData() as { username: string };
 
     return (
-        <div className="min-h-screen bg-gray-100 text-black flex">
-            <Sidebar isOpen={isSidebarOpen} onClose={() => setIsSidebarOpen(false)} />
+        <div className="min-h-screen bg-white">
+            <div className="flex min-h-screen">
+                <Sidebar
+                    isOpen={isSidebarOpen}
+                    onClose={() => setIsSidebarOpen(false)}
+                    userName={user.username}
+                />
 
-            {/*Page*/}
-            <div className="flex-1 p-4 md:p-8">
-
-                {/*Head*/}
-                <div className="bg-white rounded-lg shadow-sm p-4 md:p-6 mb-4 md:mb-6">
-                    <div className="flex items-center justify-between">
+                <div className="flex min-w-0 flex-1 flex-col bg-white">
+                    <header className="flex items-center justify-between border-b border-gray-200 bg-white px-6 py-5 md:hidden">
                         <div className="flex items-center gap-4">
-                            {/*Mobile sidebar menu toggle*/}
                             <button
                                 onClick={() => setIsSidebarOpen(true)}
-                                className="md:hidden text-gray-600 hover:text-gray-900"
+                                className="text-slate-500 transition-colors hover:text-cb-black"
+                                aria-label="Open sidebar"
                             >
-                                <Menu className="w-6 h-6" />
+                                <Menu className="h-6 w-6" />
                             </button>
-                            <h1 className="text-xl">Expense Tracker</h1>
+                            <h1 className="text-xl font-semibold text-cb-black">Dashboard</h1>
                         </div>
-                        <div className="flex items-center gap-2 md:gap-6">
-                            <div className="relative hidden sm:block">
-                                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
-                                <Input
-                                    type="text"
-                                    placeholder="Search"
-                                    className="pl-10 w-40 md:w-64 bg-gray-50 border-0"
-                                />
-                            </div>
-                            <div className="flex items-center gap-2">
-                                <button className="flex items-center gap-2 text-gray-600 hover:text-gray-900">
-                                    <User className="w-4 h-4" />
-                                    <span className="hidden sm:inline">{user.username}</span>
-                                </button>
-                                <button
-                                    className="p-1 ml-1 text-md text-gray-400 hover:text-red-600 hover:bg-gray-100 rounded"
-                                    title="Logout"
-                                    onClick={logout}
-                                    aria-label="Logout"
-                                >
-                                    &#x2715;
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                    </header>
 
-                {/*Main*/}
-                <div className="bg-white rounded-lg shadow-sm p-4 md:p-6">
-                    <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-4 md:mb-6 gap-4">
-                        <div>
-                            <h2 className="text-2xl">Overview</h2>
-                            <p className="text-sm text-gray-500">Today is 12 September 2022</p>
-                        </div>
-                        <button className="flex items-center gap-2 px-4 py-2 border border-gray-200 rounded-lg hover:bg-gray-50">
-                            <Calendar className="w-4 h-4" />
-                            <span className="text-sm">Jul 2 - Today 2022</span>
-                        </button>
-                    </div>
+                    <main className="flex-1 p-6 md:p-8 lg:p-10">
+                        {/*<div className="h-full min-h-[70vh] rounded-4xl border border-dashed border-slate-300 bg-[repeating-linear-gradient(-45deg,rgba(148,163,184,0.08)_0px,rgba(148,163,184,0.08)_2px,transparent_2px,transparent_12px)] md:min-h-[calc(100vh-5rem)]" />*/}
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 mb-6 md:mb-8">
-                        <SpendingBreakdown />
-                        <SpendingGraph />
-                    </div>
-
-                    <RecentTransactionsTable transactions={transactions} />
+                        {/*<div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 mb-6 md:mb-8">*/}
+                        {/*    <SpendingBreakdown />*/}
+                        {/*    <SpendingGraph />*/}
+                        {/*</div>*/}
+                        {/*<RecentTransactionsTable transactions={transactions} />*/}
+                    </main>
                 </div>
             </div>
         </div>
