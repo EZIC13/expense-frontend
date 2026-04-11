@@ -6,14 +6,12 @@ import { Toaster } from "react-hot-toast";
 import DashboardPage from "./pages/DashboardPage.tsx";
 import RegisterPage from "./pages/RegisterPage.tsx";
 import LoginPage from "./pages/LoginPage.tsx";
-import DashboardPage_OLD from "./pages/DashboardPage_OLD.tsx";
 
 const router = createBrowserRouter([
     { path: "/", loader: () => redirect('/dashboard') },
     { path: "/login", element: <LoginPage /> },
     { path: "/register", element: <RegisterPage /> },
     { path: "/dashboard", element: <DashboardPage />, loader: authLoader },
-    { path: "/dashboard_OLD", element: <DashboardPage_OLD /> },
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")!).render(

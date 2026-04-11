@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { useLoaderData } from "react-router-dom";
-import { Sidebar } from "../components/dashboard_OLD/Sidebar.tsx";
+import { Sidebar } from "../components/Sidebar.tsx";
 import { Menu } from "lucide-react";
 import RecentTransactionsTable from "../components/RecentTransactionsTable.tsx";
 import type { Transaction } from "../models/transaction.ts";
-import SpendingBreakdown from "../components/dashboard_OLD/SpendingBreakdown.tsx";
-import SpendingGraph from "../components/dashboard_OLD/SpendingGraph.tsx";
+import SpendingBreakdown from "../components/SpendingBreakdown.tsx";
+import SpendingGraph from "../components/SpendingGraph.tsx";
 
 const transactions: Transaction[] = [
     {
