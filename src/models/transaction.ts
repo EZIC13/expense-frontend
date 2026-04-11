@@ -3,7 +3,7 @@ export interface Transaction {
     user_id: string;
     amount: number;
     merchant: string;
-    type: string;
+    isIncome: boolean;
     category: string;
     notes: string;
     date: string;
@@ -15,7 +15,7 @@ export const dummyTransactions: Transaction[] = [
         user_id: "1",
         amount: 100,
         merchant: "Amazon",
-        type: "income",
+        isIncome: true,
         category: "Groceries",
         notes: "Groceries",
         date: "2026-01-01",
@@ -25,7 +25,7 @@ export const dummyTransactions: Transaction[] = [
         user_id: "1",
         amount: 50,
         merchant: "Starbucks",
-        type: "expense",
+        isIncome: false,
         category: "Coffee",
         notes: "Coffee",
         date: "2026-01-02",
