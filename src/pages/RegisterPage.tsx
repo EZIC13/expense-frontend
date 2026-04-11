@@ -26,7 +26,11 @@ const RegisterPage = () => {
         });
 
         if (!res.ok) {
-            toast.error("Unable to Log In", { id: toastId, ...toastOptions });
+            if (res.status === 409) {
+                toast.error("Username already exists", { id: toastId, ...toastOptions });
+                return;
+            }
+            toast.error("Unable to register", { id: toastId, ...toastOptions });
             return;
         }
 
