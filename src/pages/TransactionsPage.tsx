@@ -2,10 +2,10 @@ import { useState } from "react";
 import { useLoaderData } from "react-router-dom";
 import { Sidebar } from "../components/Sidebar.tsx";
 import { Menu } from "lucide-react";
-import {dummyTransactions} from "../models/transaction.ts";
 import RecentTransactionsTable from "../components/RecentTransactionsTable.tsx";
+import { dummyTransactions } from "../models/transaction.ts";
 
-const DashboardPage = () => {
+const TransactionsPage = () => {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     const user = useLoaderData() as { username: string };
 
@@ -28,18 +28,12 @@ const DashboardPage = () => {
                             >
                                 <Menu className="h-6 w-6" />
                             </button>
-                            <h1 className="text-xl font-semibold text-cb-black">Dashboard</h1>
+                            <h1 className="text-xl font-semibold text-cb-black">Transactions</h1>
                         </div>
                     </header>
 
                     <main className="flex-1 p-6 md:p-8 lg:p-10">
-                        {/*<div className="h-full min-h-[70vh] rounded-4xl border border-dashed border-slate-300 bg-[repeating-linear-gradient(-45deg,rgba(148,163,184,0.08)_0px,rgba(148,163,184,0.08)_2px,transparent_2px,transparent_12px)] md:min-h-[calc(100vh-5rem)]" />*/}
-
-                        {/*<div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 mb-6 md:mb-8">*/}
-                        {/*    <SpendingBreakdown />*/}
-                        {/*    <SpendingGraph />*/}
-                        {/*</div>*/}
-                        {/*<RecentTransactionsTable transactions={dummyTransactions} />*/}
+                        <RecentTransactionsTable transactions={dummyTransactions} />
                     </main>
                 </div>
             </div>
@@ -47,4 +41,4 @@ const DashboardPage = () => {
     );
 };
 
-export default DashboardPage;
+export default TransactionsPage;

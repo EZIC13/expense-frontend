@@ -1,9 +1,9 @@
 import {LayoutGrid, CreditCard, X, LogOut} from "lucide-react";
-import {type NavigateFunction, useNavigate} from "react-router-dom";
+import {type NavigateFunction, useLocation, useNavigate} from "react-router-dom";
 
 const menuItems = [
-  { icon: LayoutGrid, label: "Dashboard", active: true },
-  { icon: CreditCard, label: "Transactions", active: false },
+  { icon: LayoutGrid, label: "Dashboard", route: "/dashboard" },
+  { icon: CreditCard, label: "Transactions", route: "/transactions" },
 ];
 
 interface SidebarProps {
@@ -15,8 +15,9 @@ interface SidebarProps {
 export function Sidebar({ isOpen, onClose, userName }: SidebarProps) {
   const userInitial: string = userName.charAt(0).toUpperCase();
   const navigate: NavigateFunction = useNavigate();
+  const location = useLocation();
 
-  const logout = async () => {
+  const logout = async (): Promise<void> => {
     await fetch(import.meta.env.VITE_BACKEND_API + "/auth/logout", {
       method: "POST",
       credentials: "include"
@@ -57,20 +58,25 @@ export function Sidebar({ isOpen, onClose, userName }: SidebarProps) {
         {/*navbar items*/}
         <div className="flex flex-1 flex-col overflow-y-auto px-5 pb-6 pt-6">
           <nav className="space-y-2">
-            {menuItems.map((item) => (
-              <button
-                key={item.label}
-                className={`w-full flex items-center gap-4 rounded-md px-2 py-2.5 text-left transition-colors ${
-                  item.active
-                    ? "bg-gray-50 text-cb-blue"
-                    : "text-cb-black hover:bg-gray-50 hover:text-cb-blue"
-                }`}
-                onClick={() => onClose()}
-              >
-                <item.icon className="h-6 w-6" strokeWidth={1.9} />
-                <span>{item.label}</span>
-              </button>
-            ))}
+            {menuItems.map((item) => {
+              const isActive: boolean = location.pathname === item.route;
+
+              return (
+                <button
+                  key={item.label}
+                  className={`w-full flex items-center gap-4 rounded-md px-2 py-2.5 text-left transition-colors ${
+                    isActive ? "bg-gray-50 text-cb-blue" : "text-cb-black hover:bg-gray-50 hover:text-cb-blue"
+                  }`}
+                  onClick={() => {
+                    navigate(item.route);
+                    onClose()
+                  }}
+                >
+                  <item.icon className="h-6 w-6" strokeWidth={1.9} />
+                  <span>{item.label}</span>
+                </button>
+              );
+            })}
           </nav>
 
           {/*bottom content*/}
