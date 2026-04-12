@@ -1,8 +1,6 @@
-import { type NavigateFunction, useLoaderData, useNavigate } from "react-router-dom";
-
 const CreateTransaction = () => {
-    const navigate: NavigateFunction = useNavigate();
-    const user = useLoaderData() as { username: string };
+    // const navigate: NavigateFunction = useNavigate();
+    // const user = useLoaderData() as { username: string };
 
     return (
         <div className="border border-gray-200 rounded-lg p-4 md:p-6 bg-white">
