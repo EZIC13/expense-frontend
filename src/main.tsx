@@ -7,6 +7,7 @@ import DashboardPage from "./pages/DashboardPage.tsx";
 import RegisterPage from "./pages/RegisterPage.tsx";
 import LoginPage from "./pages/LoginPage.tsx";
 import TransactionsPage from "./pages/TransactionsPage.tsx";
+import CreateTransactionPage from "./pages/CreateTransactionPage.tsx";
 
 const router = createBrowserRouter([
     { path: "/", loader: () => redirect('/dashboard') },
@@ -14,6 +15,7 @@ const router = createBrowserRouter([
     { path: "/register", element: <RegisterPage /> },
     { path: "/dashboard", element: <DashboardPage />, loader: authLoader },
     { path: "/transactions", element: <TransactionsPage />, loader: authLoader },
+    { path: "/create-transaction", element: <CreateTransactionPage />, loader: authLoader },
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")!).render(

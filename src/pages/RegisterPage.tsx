@@ -2,10 +2,10 @@ import '../tailwind.css'
 import { useState } from "react";
 import { toast } from "react-hot-toast";
 import toastOptions from "../utils/toastOptions.ts";
-import { useNavigate } from "react-router-dom";
+import { type NavigateFunction, useNavigate } from "react-router-dom";
 
 const RegisterPage = () => {
-    const navigate = useNavigate();
+    const navigate: NavigateFunction = useNavigate();
 
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
