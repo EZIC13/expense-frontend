@@ -15,7 +15,7 @@ const LoginPage = () => {
 
         const toastId: string = toast.loading("Signing in...", toastOptions);
 
-        const res = await fetch(import.meta.env.VITE_BACKEND_API + "/auth/login", {
+        const res: Response = await fetch(import.meta.env.VITE_BACKEND_API + "/auth/login", {
             method: "POST",
             body: JSON.stringify({
                 "username": username,

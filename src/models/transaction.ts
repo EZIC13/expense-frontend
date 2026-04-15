@@ -8,6 +8,10 @@ export interface Transaction {
     notes: string;
 }
 
+export interface CreateTransactionRequest {
+    merchant: string;
+}
+
 export const dummyTransactions: Transaction[] = [
     {
         id: "1",

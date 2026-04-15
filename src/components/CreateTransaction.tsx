@@ -2,6 +2,7 @@ import { useState } from "react";
 import { toast } from "react-hot-toast";
 import toastOptions from "../utils/toastOptions.ts";
 import { type NavigateFunction, useNavigate } from "react-router-dom";
+import type {CreateTransactionRequest} from "../models/transaction.ts";
 
 const CreateTransaction = () => {
     const navigate: NavigateFunction = useNavigate();
@@ -17,11 +18,13 @@ const CreateTransaction = () => {
 
         const toastId: string = toast.loading("Creating Transaction", toastOptions);
 
-        const res = await fetch(import.meta.env.VITE_BACKEND_API + "/transactions/create-transaction", {
+        const transactionRequest: CreateTransactionRequest = {
+            "merchant": merchant
+        };
+
+        const res: Response = await fetch(import.meta.env.VITE_BACKEND_API + "/transactions/create-transaction", {
             method: "POST",
-            body: JSON.stringify({
-                "merchant": merchant,
-            }),
+            body: JSON.stringify(transactionRequest),
             headers: { "Content-Type": "application/json" },
             credentials: "include"
         });
