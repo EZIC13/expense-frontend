@@ -2,15 +2,14 @@ import { useState } from "react";
 import { toast } from "react-hot-toast";
 import toastOptions from "../utils/toastOptions.ts";
 import { type NavigateFunction, useNavigate } from "react-router-dom";
-import type {CreateTransactionRequest} from "../models/transaction.ts";
+import type { CreateTransactionRequest } from "../models/transaction.ts";
 
 const CreateTransaction = () => {
     const navigate: NavigateFunction = useNavigate();
-    // const user = useLoaderData() as { username: string };
 
     const [merchant, setMerchant] = useState<string>("");
     const [category, setCategory] = useState<string>("");
-    const [price, setPrice] = useState<string>("");
+    const [amount, setAmount] = useState<string>("");
 
 
     const handleSubmit = async (e: any) => {
@@ -19,7 +18,9 @@ const CreateTransaction = () => {
         const toastId: string = toast.loading("Creating Transaction", toastOptions);
 
         const transactionRequest: CreateTransactionRequest = {
-            "merchant": merchant
+            "merchant": merchant,
+            "category": category,
+            "amount": Number(amount)
         };
 
         const res: Response = await fetch(import.meta.env.VITE_BACKEND_API + "/transactions/create-transaction", {
@@ -82,7 +83,7 @@ const CreateTransaction = () => {
                             <label className="block text-sm font-medium text-cb-black">Price</label>
                             <div className=" mt-2 flex items-center rounded-md bg-white pl-3 outline-1 -outline-offset-1 outline-gray-300 has-[input:focus-within]:outline-2 has-[input:focus-within]:-outline-offset-2 has-[input:focus-within]:outline-indigo-600">
                                 <div className="shrink-0 text-base text-gray-500 select-none sm:text-sm/6">$</div>
-                                <input value={price} onChange={(e) => setPrice(e.target.value)} type="text" required className="block min-w-0 grow py-1.5 pr-3 pl-1 text-base text-gray-900 placeholder:text-gray-400 focus:outline-none sm:text-sm/6"/>
+                                <input value={amount} onChange={(e) => setAmount(e.target.value)} type="number" required className="block min-w-0 grow py-1.5 pr-3 pl-1 text-base text-gray-900 placeholder:text-gray-400 focus:outline-none sm:text-sm/6"/>
                             </div>
                         </div>
 
