@@ -28,7 +28,7 @@ const RecentTransactionsTable = ({ transactions }: { transactions: Transaction[]
                         {transactions.map(transaction => {
                             const isIncome: boolean = transaction.isIncome;
                             return (
-                                <tr key={transaction.transaction_id} className="transition-colors">
+                                <tr key={transaction.id} className="transition-colors">
                                     <td className="border-b border-gray-100 px-3 py-4 text-sm text-gray-500 whitespace-nowrap">{transaction.date}</td>
                                     <td className="border-b border-gray-100 px-3 py-4 text-sm font-medium text-cb-black">{transaction.merchant}</td>
                                     <td className="border-b border-gray-100 px-3 py-4 text-sm text-gray-500">

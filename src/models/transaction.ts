@@ -1,33 +1,30 @@
 export interface Transaction {
-    transaction_id: string;
-    user_id: string;
-    amount: number;
-    merchant: string;
-    isIncome: boolean;
-    category: string;
-    notes: string;
+    id: string;
     date: string;
+    merchant: string;
+    category: string;
+    isIncome: boolean;
+    amount: number;
+    notes: string;
 }
 
 export const dummyTransactions: Transaction[] = [
     {
-        transaction_id: "1",
-        user_id: "1",
-        amount: 100,
-        merchant: "Amazon",
+        id: "1",
+        date: "01-01-2001",
+        merchant: "Salary",
+        category: "Work",
         isIncome: true,
-        category: "Groceries",
-        notes: "Groceries",
-        date: "2026-01-01",
+        amount: 100,
+        notes: ""
     },
     {
-        transaction_id: "2",
-        user_id: "1",
-        amount: 50,
-        merchant: "Starbucks",
+        id: "2",
+        date: "01-01-2001",
+        merchant: "Amazon",
+        category: "Food",
         isIncome: false,
-        category: "Coffee",
-        notes: "Coffee",
-        date: "2026-01-02",
-    },
+        amount: 100,
+        notes: "Groceries"
+    }
 ];
