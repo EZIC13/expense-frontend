@@ -29,8 +29,8 @@ const RecentTransactionsTable = ({ transactions }: { transactions: Transaction[]
                             const isIncome: boolean = transaction.isIncome;
                             const formattedAmount: string = (transaction.amountInCents / 100).toFixed(2);
                             return (
-                                <tr key={transaction.id} className="transition-colors">
-                                    <td className="border-b border-gray-100 px-3 py-4 text-sm text-gray-500 whitespace-nowrap">{transaction.date}</td>
+                                <tr className="transition-colors">
+                                    <td className="border-b border-gray-100 px-3 py-4 text-sm text-gray-500 whitespace-nowrap">{transaction.transactionDate}</td>
                                     <td className="border-b border-gray-100 px-3 py-4 text-sm font-medium text-cb-black">{transaction.merchant}</td>
                                     <td className="border-b border-gray-100 px-3 py-4 text-sm text-gray-500">
                                         <Badge badgeType={"CATEGORY"} badgeText={transaction.category} />

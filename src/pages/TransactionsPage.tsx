@@ -3,11 +3,12 @@ import { useLoaderData } from "react-router-dom";
 import { Sidebar } from "../components/Sidebar.tsx";
 import { Menu } from "lucide-react";
 import RecentTransactionsTable from "../components/RecentTransactionsTable.tsx";
-import { dummyTransactions } from "../models/transaction.ts";
+import type { Transaction } from "../models/transaction.ts";
+import type { TransactionsPageData } from "../utils/transactionsDataLoader.ts";
 
 const TransactionsPage = () => {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-    const user = useLoaderData() as { username: string };
+    const { user, transactions } = useLoaderData() as TransactionsPageData;
 
     return (
         <div className="min-h-screen bg-white">
@@ -33,7 +34,7 @@ const TransactionsPage = () => {
                     </header>
 
                     <main className="flex-1 p-6 md:p-8 lg:p-10">
-                        <RecentTransactionsTable transactions={dummyTransactions} />
+                        <RecentTransactionsTable transactions={transactions as Transaction[]} />
                     </main>
                 </div>
             </div>

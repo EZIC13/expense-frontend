@@ -1,6 +1,7 @@
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, redirect, RouterProvider } from "react-router-dom";
 import { authLoader } from "./utils/authLoader";
+import { transactionDataLoader } from "./utils/transactionsDataLoader.ts";
 import { StrictMode } from "react";
 import { Toaster } from "react-hot-toast";
 import DashboardPage from "./pages/DashboardPage.tsx";
@@ -13,8 +14,8 @@ const router = createBrowserRouter([
     { path: "/", loader: () => redirect('/dashboard') },
     { path: "/login", element: <LoginPage /> },
     { path: "/register", element: <RegisterPage /> },
-    { path: "/dashboard", element: <DashboardPage />, loader: authLoader },
-    { path: "/transactions", element: <TransactionsPage />, loader: authLoader },
+    { path: "/dashboard", element: <DashboardPage />, loader: transactionDataLoader },
+    { path: "/transactions", element: <TransactionsPage />, loader: transactionDataLoader },
     { path: "/create-transaction", element: <CreateTransactionPage />, loader: authLoader },
 ]);
 

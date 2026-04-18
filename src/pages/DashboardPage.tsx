@@ -2,14 +2,14 @@ import { useState } from "react";
 import { useLoaderData } from "react-router-dom";
 import { Sidebar } from "../components/Sidebar.tsx";
 import { Menu } from "lucide-react";
-import {dummyTransactions} from "../models/transaction.ts";
 import RecentTransactionsTable from "../components/RecentTransactionsTable.tsx";
 import SpendingBreakdown from "../components/SpendingBreakdown.tsx";
 import SpendingGraph from "../components/SpendingGraph.tsx";
+import type { TransactionsPageData } from "../utils/transactionsDataLoader.ts";
 
 const DashboardPage = () => {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-    const user = useLoaderData() as { username: string };
+    const { user, transactions } = useLoaderData() as TransactionsPageData;
 
     return (
         <div className="min-h-screen bg-white">
@@ -41,7 +41,7 @@ const DashboardPage = () => {
                             <SpendingBreakdown />
                             <SpendingGraph />
                         </div>
-                        <RecentTransactionsTable transactions={dummyTransactions} />
+                        <RecentTransactionsTable transactions={transactions} />
                     </main>
                 </div>
             </div>
