@@ -1,5 +1,6 @@
 import { redirect } from "react-router-dom";
 import type { Transaction } from "../models/transaction.ts";
+import { getRequest, UnauthorizedError } from "../services/RequestService.ts";
 
 export interface TransactionsPageData {
     transactions: Transaction[];
@@ -7,23 +8,16 @@ export interface TransactionsPageData {
 }
 
 export const transactionDataLoader = async (): Promise<TransactionsPageData> => {
-    const [userRes, transactionsRes] = await Promise.all([
-        fetch(import.meta.env.VITE_BACKEND_API + "/auth/current-user", {
-            method: "GET",
-            credentials: "include"
-        }),
-        fetch(import.meta.env.VITE_BACKEND_API + "/transactions", {
-            method: "GET",
-            credentials: "include"
-        })
-    ]);
-
-    if (userRes.status === 401 || transactionsRes.status === 401) {
-        throw redirect("/login");
+    try {
+        const [user, transactions] = await Promise.all([
+            getRequest<{ username: string }>("/auth/current-user"),
+            getRequest<Transaction[]>("/transactions")
+        ]);
+        return { user, transactions };
+    } catch (error) {
+        if (error instanceof UnauthorizedError) {
+            throw redirect("/login");
+        }
+        throw error;
     }
-
-    return {
-        user: await userRes.json(),
-        transactions: await transactionsRes.json()
-    };
 };

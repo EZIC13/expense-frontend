@@ -3,6 +3,7 @@ import { toast } from "react-hot-toast";
 import toastOptions from "../utils/toastOptions.ts";
 import { type NavigateFunction, useNavigate } from "react-router-dom";
 import type { CreateTransactionRequest } from "../models/transaction.ts";
+import { postRequest, UnauthorizedError } from "../services/RequestService.ts";
 
 const CreateTransaction = () => {
     const navigate: NavigateFunction = useNavigate();
@@ -33,16 +34,11 @@ const CreateTransaction = () => {
             "transactionDate": transactionDate
         };
 
-        const res: Response = await fetch(import.meta.env.VITE_BACKEND_API + "/transactions/create-transaction", {
-            method: "POST",
-            body: JSON.stringify(transactionRequest),
-            headers: { "Content-Type": "application/json" },
-            credentials: "include"
-        });
-
-        if (!res.ok) {
-            if (res.status === 401) {
-                toast.error("Session Expired. Please log in again", { id: toastId, ...toastOptions });
+        try {
+            await postRequest<CreateTransactionRequest>("/transactions", transactionRequest);
+        } catch (error) {
+            if (error instanceof UnauthorizedError) {
+                toast.error("Session expired. Please log in again", { id: toastId, ...toastOptions });
                 navigate("/login");
                 return;
             }
@@ -50,8 +46,9 @@ const CreateTransaction = () => {
             return;
         }
 
-        toast.success("Success!", { id: toastId, ...toastOptions });
+        toast.success("Successfully created transaction", { id: toastId, ...toastOptions });
         navigate("/dashboard");
+        return;
     };
 
     return (

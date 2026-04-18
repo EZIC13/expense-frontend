@@ -1,14 +1,14 @@
 import { redirect } from "react-router-dom";
+import { getRequest, UnauthorizedError } from "../services/RequestService.ts";
 
-export const authLoader = async (): Promise<any> => {
-    const res: Response = await fetch(import.meta.env.VITE_BACKEND_API + "/auth/current-user", {
-        method: "GET",
-        credentials: "include"
-    });
-
-    if (res.status === 401) {
-        throw redirect("/login");
+export const authLoader = async (): Promise<{ username: string }> => {
+    try {
+        const user: { username: string } = await getRequest<{ username: string }>("/auth/current-user");
+        return user;
+    } catch (error) {
+        if (error instanceof UnauthorizedError) {
+            throw redirect("/login");
+        }
+        throw error;
     }
-
-    return await res.json();
 }
