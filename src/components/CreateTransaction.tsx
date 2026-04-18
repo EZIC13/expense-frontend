@@ -6,10 +6,12 @@ import type { CreateTransactionRequest } from "../models/transaction.ts";
 
 const CreateTransaction = () => {
     const navigate: NavigateFunction = useNavigate();
+    const defaultTransactionDate: string = new Date().toISOString().split("T")[0];
 
     const [merchant, setMerchant] = useState<string>("");
     const [category, setCategory] = useState<string>("");
     const [amount, setAmount] = useState<string>("");
+    const [date, setDate] = useState<string>(defaultTransactionDate);
 
 
     const handleSubmit = async (e: any) => {
@@ -20,7 +22,8 @@ const CreateTransaction = () => {
         const transactionRequest: CreateTransactionRequest = {
             "merchant": merchant,
             "category": category,
-            "amount": Number(amount)
+            "amount": Number(amount),
+            "date": date
         };
 
         const res: Response = await fetch(import.meta.env.VITE_BACKEND_API + "/transactions/create-transaction", {
@@ -48,7 +51,7 @@ const CreateTransaction = () => {
             </div>
 
 
-            {/*date*/}
+            {/*date DONE*/}
             {/*merchant DONE*/}
             {/*category DONE*/}
             {/*type*/}
@@ -56,11 +59,17 @@ const CreateTransaction = () => {
             {/*notes DONE*/}
 
 
-
-
             <form onSubmit={handleSubmit}>
                 <div className="space-y-12">
                     <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+
+                        {/*Date*/}
+                        <div className="sm:col-span-4">
+                            <label className="block text-sm font-medium text-cb-black">Date</label>
+                            <div className="mt-2">
+                                <input value={date} onChange={(e) => setDate(e.target.value)} type="date" required className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-cb-black outline-1 outline-offset-1 outline-gray-300 focus:outline-2 focus:outline-cb-blue sm:text-sm"/>
+                            </div>
+                        </div>
 
                         {/*Merchant*/}
                         <div className="sm:col-span-4">
@@ -78,7 +87,7 @@ const CreateTransaction = () => {
                             </div>
                         </div>
 
-                        {/*Price*/}
+                        {/*Amount*/}
                         <div className="sm:col-span-4">
                             <label className="block text-sm font-medium text-cb-black">Price</label>
                             <div className=" mt-2 flex items-center rounded-md bg-white pl-3 outline-1 -outline-offset-1 outline-gray-300 has-[input:focus-within]:outline-2 has-[input:focus-within]:-outline-offset-2 has-[input:focus-within]:outline-indigo-600">

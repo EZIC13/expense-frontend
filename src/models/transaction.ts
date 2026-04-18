@@ -12,6 +12,7 @@ export interface CreateTransactionRequest {
     merchant: string;
     category: string;
     amount: number;
+    date: string;
 }
 
 export const dummyTransactions: Transaction[] = [
