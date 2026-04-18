@@ -11,6 +11,7 @@ export interface Transaction {
 export interface CreateTransactionRequest {
     merchant: string;
     category: string;
+    isIncome: boolean;
     amountInCents: number;
     transactionDate: string;
 }

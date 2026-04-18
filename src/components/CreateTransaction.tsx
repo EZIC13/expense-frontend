@@ -12,9 +12,9 @@ const CreateTransaction = () => {
     const [category, setCategory] = useState<string>("");
     const [amount, setAmount] = useState<string>("");
     const [transactionDate, setTransactionDate] = useState<string>(defaultTransactionDate);
+    const [isIncome, setIsIncome] = useState<boolean>(false);
 
-
-    const handleSubmit = async (e: any) => {
+    const handleSubmit = async (e: any):Promise<void> => {
         e.preventDefault();
 
         const toastId: string = toast.loading("Creating Transaction", toastOptions);
@@ -28,6 +28,7 @@ const CreateTransaction = () => {
         const transactionRequest: CreateTransactionRequest = {
             "merchant": merchant,
             "category": category,
+            "isIncome": isIncome,
             "amountInCents": Math.round(parsedAmount * 100),
             "transactionDate": transactionDate
         };
@@ -60,15 +61,6 @@ const CreateTransaction = () => {
                 <h3 className="text-xl font-semibold text-cb-black">Create Transaction</h3>
             </div>
 
-
-            {/*date DONE*/}
-            {/*merchant DONE*/}
-            {/*category DONE*/}
-            {/*type*/}
-            {/*amount DONE*/}
-            {/*notes DONE*/}
-
-
             <form onSubmit={handleSubmit}>
                 <div className="space-y-12">
                     <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
@@ -94,6 +86,21 @@ const CreateTransaction = () => {
                             <label className="block text-sm font-medium text-cb-black">Category</label>
                             <div className="mt-2">
                                 <input value={category} onChange={(e) => setCategory(e.target.value)} type="text" required className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-cb-black outline-1 outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:outline-cb-blue sm:text-sm"/>
+                            </div>
+                        </div>
+
+                        {/*Type*/}
+                        <div className="sm:col-span-4">
+                            <label className="block text-sm font-medium text-cb-black">Type</label>
+                            <div className="mt-2">
+                                <select
+                                    value={isIncome ? "income" : "expense"}
+                                    onChange={(e) => setIsIncome(e.target.value === "income")}
+                                    className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-cb-black outline-1 outline-offset-1 outline-gray-300 focus:outline-2 focus:outline-cb-blue sm:text-sm"
+                                >
+                                    <option value="expense">Expense</option>
+                                    <option value="income">Income</option>
+                                </select>
                             </div>
                         </div>
 
