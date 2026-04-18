@@ -27,6 +27,7 @@ const RecentTransactionsTable = ({ transactions }: { transactions: Transaction[]
                     <tbody>
                         {transactions.map(transaction => {
                             const isIncome: boolean = transaction.isIncome;
+                            const formattedAmount: string = (transaction.amountInCents / 100).toFixed(2);
                             return (
                                 <tr key={transaction.id} className="transition-colors">
                                     <td className="border-b border-gray-100 px-3 py-4 text-sm text-gray-500 whitespace-nowrap">{transaction.date}</td>
@@ -37,7 +38,7 @@ const RecentTransactionsTable = ({ transactions }: { transactions: Transaction[]
                                     <td className="border-b border-gray-100 px-3 py-4 text-sm text-gray-500">
                                         <Badge badgeType={isIncome ? "INCOME": "EXPENSE"} badgeText={isIncome ? "Income" : "Expense"} />
                                     </td>
-                                    <td className={`border-b border-gray-100 px-3 py-4 text-right text-sm font-semibold whitespace-nowrap ${isIncome ? "text-emerald-600" : "text-rose-600"}`}>{isIncome ? "+" : "-"}${transaction.amount.toFixed(2)}</td>
+                                    <td className={`border-b border-gray-100 px-3 py-4 text-right text-sm font-semibold whitespace-nowrap ${isIncome ? "text-emerald-600" : "text-rose-600"}`}>{isIncome ? "+" : "-"}${formattedAmount}</td>
                                 </tr>
                             );
                         })}

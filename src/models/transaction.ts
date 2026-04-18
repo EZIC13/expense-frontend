@@ -4,15 +4,15 @@ export interface Transaction {
     merchant: string;
     category: string;
     isIncome: boolean;
-    amount: number;
+    amountInCents: number;
     notes: string;
 }
 
 export interface CreateTransactionRequest {
     merchant: string;
     category: string;
-    amount: number;
-    date: string;
+    amountInCents: number;
+    transactionDate: string;
 }
 
 export const dummyTransactions: Transaction[] = [
@@ -22,7 +22,7 @@ export const dummyTransactions: Transaction[] = [
         merchant: "Salary",
         category: "Work",
         isIncome: true,
-        amount: 100,
+        amountInCents: 10000,
         notes: ""
     },
     {
@@ -31,7 +31,7 @@ export const dummyTransactions: Transaction[] = [
         merchant: "Amazon",
         category: "Food",
         isIncome: false,
-        amount: 100,
+        amountInCents: 10000,
         notes: "Groceries"
     }
 ];

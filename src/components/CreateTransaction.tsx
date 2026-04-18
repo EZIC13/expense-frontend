@@ -11,19 +11,25 @@ const CreateTransaction = () => {
     const [merchant, setMerchant] = useState<string>("");
     const [category, setCategory] = useState<string>("");
     const [amount, setAmount] = useState<string>("");
-    const [date, setDate] = useState<string>(defaultTransactionDate);
+    const [transactionDate, setTransactionDate] = useState<string>(defaultTransactionDate);
 
 
     const handleSubmit = async (e: any) => {
         e.preventDefault();
 
         const toastId: string = toast.loading("Creating Transaction", toastOptions);
+        const parsedAmount: number = Number(amount);
+
+        if (!Number.isFinite(parsedAmount)) {
+            toast.error("Please enter a valid amount", { id: toastId, ...toastOptions });
+            return;
+        }
 
         const transactionRequest: CreateTransactionRequest = {
             "merchant": merchant,
             "category": category,
-            "amount": Number(amount),
-            "date": date
+            "amountInCents": Math.round(parsedAmount * 100),
+            "transactionDate": transactionDate
         };
 
         const res: Response = await fetch(import.meta.env.VITE_BACKEND_API + "/transactions/create-transaction", {
@@ -41,7 +47,6 @@ const CreateTransaction = () => {
         toast.success("Success!", { id: toastId, ...toastOptions });
         navigate("/dashboard");
     };
-
 
     return (
         // <div className="border border-gray-200 rounded-lg p-4 md:p-6 bg-white">
@@ -67,7 +72,7 @@ const CreateTransaction = () => {
                         <div className="sm:col-span-4">
                             <label className="block text-sm font-medium text-cb-black">Date</label>
                             <div className="mt-2">
-                                <input value={date} onChange={(e) => setDate(e.target.value)} type="date" required className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-cb-black outline-1 outline-offset-1 outline-gray-300 focus:outline-2 focus:outline-cb-blue sm:text-sm"/>
+                                <input value={transactionDate} onChange={(e) => setTransactionDate(e.target.value)} type="date" required className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-cb-black outline-1 outline-offset-1 outline-gray-300 focus:outline-2 focus:outline-cb-blue sm:text-sm"/>
                             </div>
                         </div>
 
@@ -89,10 +94,10 @@ const CreateTransaction = () => {
 
                         {/*Amount*/}
                         <div className="sm:col-span-4">
-                            <label className="block text-sm font-medium text-cb-black">Price</label>
+                            <label className="block text-sm font-medium text-cb-black">Amount</label>
                             <div className=" mt-2 flex items-center rounded-md bg-white pl-3 outline-1 -outline-offset-1 outline-gray-300 has-[input:focus-within]:outline-2 has-[input:focus-within]:-outline-offset-2 has-[input:focus-within]:outline-indigo-600">
                                 <div className="shrink-0 text-base text-gray-500 select-none sm:text-sm/6">$</div>
-                                <input value={amount} onChange={(e) => setAmount(e.target.value)} type="number" required className="block min-w-0 grow py-1.5 pr-3 pl-1 text-base text-gray-900 placeholder:text-gray-400 focus:outline-none sm:text-sm/6"/>
+                                <input value={amount} onChange={(e) => setAmount(e.target.value)} type="number" step="0.01" inputMode="decimal" required className="block min-w-0 grow py-1.5 pr-3 pl-1 text-base text-gray-900 placeholder:text-gray-400 focus:outline-none sm:text-sm/6"/>
                             </div>
                         </div>
 
