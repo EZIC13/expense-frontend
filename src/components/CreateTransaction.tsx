@@ -40,6 +40,11 @@ const CreateTransaction = () => {
         });
 
         if (!res.ok) {
+            if (res.status === 401) {
+                toast.error("Session Expired. Please log in again", { id: toastId, ...toastOptions });
+                navigate("/login");
+                return;
+            }
             toast.error("Unable to create transaction", { id: toastId, ...toastOptions });
             return;
         }
