@@ -37,3 +37,19 @@ export const postRequest = async <TBody>(endpoint: string, body: TBody):Promise<
         throw new Error();
     }
 }
+
+export const putRequest = async <TBody>(endpoint: string, body: TBody):Promise<void> => {
+    const response: Response = await fetch(BASE_URL + endpoint, {
+        method: "PUT",
+        body: JSON.stringify(body),
+        headers: { "Content-Type": "application/json" },
+        credentials: "include"
+    });
+
+    if (!response.ok) {
+        if (response.status === 401) {
+            throw new UnauthorizedError();
+        }
+        throw new Error();
+    }
+}

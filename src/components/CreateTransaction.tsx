@@ -2,7 +2,7 @@ import { useState } from "react";
 import { toast } from "react-hot-toast";
 import toastOptions from "../utils/toastOptions.ts";
 import { type NavigateFunction, useNavigate } from "react-router-dom";
-import type { CreateTransactionRequest } from "../models/transaction.ts";
+import type { TransactionRequest } from "../models/transaction.ts";
 import { postRequest, UnauthorizedError } from "../services/RequestService.ts";
 
 const CreateTransaction = () => {
@@ -26,7 +26,7 @@ const CreateTransaction = () => {
             return;
         }
 
-        const transactionRequest: CreateTransactionRequest = {
+        const transactionRequest: TransactionRequest = {
             "merchant": merchant,
             "category": category,
             "isIncome": isIncome,
@@ -35,7 +35,7 @@ const CreateTransaction = () => {
         };
 
         try {
-            await postRequest<CreateTransactionRequest>("/transactions", transactionRequest);
+            await postRequest<TransactionRequest>("/transactions", transactionRequest);
         } catch (error) {
             if (error instanceof UnauthorizedError) {
                 toast.error("Session expired. Please log in again", { id: toastId, ...toastOptions });

@@ -29,6 +29,10 @@ const TransactionsTable = (props: TransactionTableProps) => {
                             <th className="border-b border-gray-200 px-3 py-3 text-sm font-medium text-cb-black">Category</th>
                             <th className="border-b border-gray-200 px-3 py-3 text-sm font-medium text-cb-black">Type</th>
                             <th className="border-b border-gray-200 px-3 py-3 text-right text-sm font-medium text-cb-black">Amount</th>
+
+                            {!props.readOnly &&
+                                <th className="border-b border-gray-200 px-3 py-3 text-right text-sm font-medium text-cb-black">Edit</th>
+                            }
                         </tr>
                     </thead>
 
@@ -37,7 +41,7 @@ const TransactionsTable = (props: TransactionTableProps) => {
                             const isIncome: boolean = transaction.isIncome;
                             const formattedAmount: string = (transaction.amountInCents / 100).toFixed(2);
                             return (
-                                <tr className="transition-colors">
+                                <tr key={transaction.id} className="transition-colors">
                                     <td className="border-b border-gray-100 px-3 py-4 text-sm text-gray-500 whitespace-nowrap">{transaction.transactionDate}</td>
                                     <td className="border-b border-gray-100 px-3 py-4 text-sm font-medium text-cb-black">{transaction.merchant}</td>
                                     <td className="border-b border-gray-100 px-3 py-4 text-sm text-gray-500">
@@ -47,6 +51,12 @@ const TransactionsTable = (props: TransactionTableProps) => {
                                         <Badge badgeType={isIncome ? "INCOME": "EXPENSE"} badgeText={isIncome ? "Income" : "Expense"} />
                                     </td>
                                     <td className={`border-b border-gray-100 px-3 py-4 text-right text-sm font-semibold whitespace-nowrap ${isIncome ? "text-emerald-600" : "text-rose-600"}`}>{isIncome ? "+" : "-"}${formattedAmount}</td>
+
+                                    {!props.readOnly &&
+                                        <td className="border-b border-gray-100 px-3 py-4 text-right text-sm font-semibold whitespace-nowrap">
+                                            <button onClick={() => {navigate(`/edit-transaction/${transaction.id}`)}} className="rounded-md bg-cb-blue px-3 py-1.5 text-sm font-semibold text-white shadow-xs hover:bg-cb-blue-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cb-blue">Edit</button>
+                                        </td>
+                                    }
                                 </tr>
                             );
                         })}

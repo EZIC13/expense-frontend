@@ -13,10 +13,11 @@ This project is a full-stack web application that allows users to track and cate
 Connects to backend API (see backend repo for full stack, authentication, and deployment details)
 
 ## Current Features
-- Signup, Login, and Logout flow, connecting the client to the backend.
-- Prototyped dashboard with responsive layout, cards, and static example data.
-
-Authentication is the primary focus of the current development stage. Expense tracking pages and related functionality will be added next.
+- Signup, Login, and Logout flow
+- Creation of new transactions
+- Editing of existing transactions
+- Retrieval of all transactions
+- Isolating data visibility by authenticated user
 
 ## Running Locally
 Run the development server using `npm run dev`.

@@ -1,4 +1,5 @@
 export interface Transaction {
+    id: string
     merchant: string;
     category: string;
     isIncome: boolean;
@@ -6,27 +7,10 @@ export interface Transaction {
     transactionDate: string;
 }
 
-export interface CreateTransactionRequest {
+export interface TransactionRequest {
     merchant: string;
     category: string;
     isIncome: boolean;
     amountInCents: number;
     transactionDate: string;
 }
-
-export const dummyTransactions: Transaction[] = [
-    {
-        transactionDate: "01-01-2001",
-        merchant: "Salary",
-        category: "Work",
-        isIncome: true,
-        amountInCents: 10000
-    },
-    {
-        transactionDate: "01-01-2001",
-        merchant: "Amazon",
-        category: "Food",
-        isIncome: false,
-        amountInCents: 10000
-    }
-];
