@@ -2,14 +2,22 @@ import type { Transaction } from "../models/transaction.ts";
 import Badge from "./Badge.tsx";
 import { type NavigateFunction, useNavigate } from "react-router-dom";
 
-const RecentTransactionsTable = ({ transactions }: { transactions: Transaction[] }) => {
+interface TransactionTableProps {
+    transactions: Transaction[];
+    readOnly: boolean;
+}
+
+const TransactionsTable = (props: TransactionTableProps) => {
     const navigate: NavigateFunction = useNavigate();
 
     return (
         <div className="border border-gray-200 rounded-lg p-4 md:p-6 bg-white">
             <div className="flex items-start justify-between gap-4 mb-4">
-                <h3 className="text-xl font-semibold text-cb-black">Recent Transactions</h3>
-                <button onClick={() => {navigate("/create-transaction")}} className="rounded-md bg-cb-blue px-3 py-1.5 text-sm font-semibold text-white shadow-xs hover:bg-cb-blue-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cb-blue">Add Transaction</button>
+                <h3 className="text-xl font-semibold text-cb-black">Transactions</h3>
+
+                {!props.readOnly &&
+                    <button onClick={() => {navigate("/create-transaction")}} className="rounded-md bg-cb-blue px-3 py-1.5 text-sm font-semibold text-white shadow-xs hover:bg-cb-blue-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cb-blue">Add Transaction</button>
+                }
             </div>
 
             <div className="overflow-x-auto">
@@ -25,7 +33,7 @@ const RecentTransactionsTable = ({ transactions }: { transactions: Transaction[]
                     </thead>
 
                     <tbody>
-                        {transactions.map(transaction => {
+                        {props.transactions.map(transaction => {
                             const isIncome: boolean = transaction.isIncome;
                             const formattedAmount: string = (transaction.amountInCents / 100).toFixed(2);
                             return (
@@ -49,4 +57,4 @@ const RecentTransactionsTable = ({ transactions }: { transactions: Transaction[]
     );
 }
 
-export default RecentTransactionsTable;
+export default TransactionsTable;

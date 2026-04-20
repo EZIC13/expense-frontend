@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useLoaderData } from "react-router-dom";
 import { Sidebar } from "../components/Sidebar.tsx";
 import { Menu } from "lucide-react";
-import RecentTransactionsTable from "../components/RecentTransactionsTable.tsx";
+import TransactionsTable from "../components/TransactionsTable.tsx";
 import type { Transaction } from "../models/transaction.ts";
 import type { TransactionsPageData } from "../utils/transactionsDataLoader.ts";
 
@@ -34,7 +34,7 @@ const TransactionsPage = () => {
                     </header>
 
                     <main className="flex-1 p-6 md:p-8 lg:p-10">
-                        <RecentTransactionsTable transactions={transactions as Transaction[]} />
+                        <TransactionsTable transactions={transactions as Transaction[]} readOnly={false} />
                     </main>
                 </div>
             </div>

@@ -11,10 +11,10 @@ const badgeClasses: Record<BadgeType, string> = {
     EXPENSE: "inline-flex items-center rounded-md bg-red-50 px-2 py-1 text-xs font-medium text-red-700 inset-ring inset-ring-red-600/10"
 };
 
-const Badge = ({ badgeType, badgeText }: BadgeProps) => {
+const Badge = (props: BadgeProps) => {
     return (
-        <span className={badgeClasses[badgeType]}>
-            {badgeText}
+        <span className={badgeClasses[props.badgeType]}>
+            {props.badgeText}
         </span>
     );
 };

@@ -37,5 +37,3 @@ export const postRequest = async <TBody>(endpoint: string, body: TBody):Promise<
         throw new Error();
     }
 }
-
-

@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useLoaderData } from "react-router-dom";
 import { Sidebar } from "../components/Sidebar.tsx";
 import { Menu } from "lucide-react";
-import RecentTransactionsTable from "../components/RecentTransactionsTable.tsx";
+import TransactionsTable from "../components/TransactionsTable.tsx";
 import SpendingBreakdown from "../components/SpendingBreakdown.tsx";
 import SpendingGraph from "../components/SpendingGraph.tsx";
 import type { TransactionsPageData } from "../utils/transactionsDataLoader.ts";
@@ -41,7 +41,7 @@ const DashboardPage = () => {
                             <SpendingBreakdown />
                             <SpendingGraph />
                         </div>
-                        <RecentTransactionsTable transactions={transactions} />
+                        <TransactionsTable transactions={transactions} readOnly={true} />
                     </main>
                 </div>
             </div>
