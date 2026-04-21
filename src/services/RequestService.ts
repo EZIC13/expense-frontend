@@ -4,6 +4,12 @@ export class UnauthorizedError extends Error {
     }
 }
 
+export class ConflictError extends Error {
+    constructor() {
+        super("Conflict");
+    }
+}
+
 const BASE_URL: string = import.meta.env.VITE_BACKEND_API;
 
 export const getRequest = async <T>(endpoint: string):Promise<T> => {
@@ -33,6 +39,9 @@ export const postRequest = async <TBody>(endpoint: string, body: TBody):Promise<
     if (!response.ok) {
         if (response.status === 401) {
             throw new UnauthorizedError();
+        }
+        if (response.status === 409) {
+            throw new ConflictError();
         }
         throw new Error();
     }

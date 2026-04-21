@@ -3,6 +3,8 @@ import { useState } from "react";
 import { toast } from "react-hot-toast";
 import toastOptions from "../utils/toastOptions.ts";
 import { type NavigateFunction, useNavigate } from "react-router-dom";
+import type { AuthRequest } from "../models/AuthRequest.ts";
+import { ConflictError, postRequest } from "../services/RequestService.ts";
 
 const RegisterPage = () => {
     const navigate: NavigateFunction = useNavigate();
@@ -15,18 +17,15 @@ const RegisterPage = () => {
 
         const toastId: string = toast.loading("Signing up...", toastOptions);
 
-        const res: Response = await fetch(import.meta.env.VITE_BACKEND_API + "/auth/create-user", {
-            method: "POST",
-            body: JSON.stringify({
-                "username": username,
-                "password": password
-            }),
-            headers: { "Content-Type": "application/json" },
-            credentials: "include"
-        });
+        const registerRequest: AuthRequest = {
+            "username": username,
+            "password": password
+        }
 
-        if (!res.ok) {
-            if (res.status === 409) {
+        try {
+            await postRequest<AuthRequest>("/auth/create-user", registerRequest);
+        } catch (error) {
+            if (error instanceof ConflictError) {
                 toast.error("Username already exists", { id: toastId, ...toastOptions });
                 return;
             }
@@ -36,6 +35,7 @@ const RegisterPage = () => {
 
         toast.success("Success!", { id: toastId, ...toastOptions });
         navigate("/dashboard");
+        return;
     };
 
     return (

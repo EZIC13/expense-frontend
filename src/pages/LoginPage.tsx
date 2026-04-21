@@ -3,6 +3,8 @@ import { useState } from "react";
 import { toast } from "react-hot-toast";
 import toastOptions from "../utils/toastOptions.ts";
 import { type NavigateFunction, useNavigate } from "react-router-dom";
+import { postRequest, UnauthorizedError } from "../services/RequestService.ts";
+import type { AuthRequest } from "../models/AuthRequest.ts";
 
 const LoginPage = () => {
     const navigate: NavigateFunction = useNavigate();
@@ -15,23 +17,25 @@ const LoginPage = () => {
 
         const toastId: string = toast.loading("Signing in...", toastOptions);
 
-        const res: Response = await fetch(import.meta.env.VITE_BACKEND_API + "/auth/login", {
-            method: "POST",
-            body: JSON.stringify({
-                "username": username,
-                "password": password
-            }),
-            headers: { "Content-Type": "application/json" },
-            credentials: "include"
-        });
+        const loginRequest: AuthRequest = {
+            "username": username,
+            "password": password
+        }
 
-        if (!res.ok) {
-            toast.error("Invalid Credentials", { id: toastId, ...toastOptions });
+        try {
+            await postRequest<AuthRequest>("/auth/login", loginRequest);
+        } catch (error) {
+            if (error instanceof UnauthorizedError) {
+                toast.error("Invalid Credentials", { id: toastId, ...toastOptions });
+                return;
+            }
+            toast.error("Unable to log in", { id: toastId, ...toastOptions });
             return;
         }
 
         toast.success("Success!", { id: toastId, ...toastOptions });
         navigate("/dashboard");
+        return;
     };
 
     return (

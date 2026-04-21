@@ -1,5 +1,6 @@
 import {LayoutGrid, CreditCard, X, LogOut} from "lucide-react";
 import {type NavigateFunction, useLocation, useNavigate} from "react-router-dom";
+import { postRequest } from "../services/RequestService.ts";
 
 const menuItems = [
   { icon: LayoutGrid, label: "Dashboard", route: "/dashboard" },
@@ -18,11 +19,9 @@ export function Sidebar({ isOpen, onClose, userName }: SidebarProps) {
   const location = useLocation();
 
   const logout = async (): Promise<void> => {
-    await fetch(import.meta.env.VITE_BACKEND_API + "/auth/logout", {
-      method: "POST",
-      credentials: "include"
-    });
+    await postRequest<null>("/auth/logout", null);
     navigate("/login");
+    return;
   }
 
   return (
