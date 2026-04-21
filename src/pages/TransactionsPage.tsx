@@ -3,8 +3,8 @@ import { useLoaderData } from "react-router-dom";
 import { Sidebar } from "../components/Sidebar.tsx";
 import { Menu } from "lucide-react";
 import TransactionsTable from "../components/TransactionsTable.tsx";
-import type { Transaction } from "../models/transaction.ts";
 import type { TransactionsPageData } from "../utils/transactionsDataLoader.ts";
+import EmptyState from "../components/EmptyState.tsx";
 
 const TransactionsPage = () => {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -34,7 +34,11 @@ const TransactionsPage = () => {
                     </header>
 
                     <main className="flex-1 p-6 md:p-8 lg:p-10">
-                        <TransactionsTable transactions={transactions as Transaction[]} readOnly={false} />
+                        {transactions.length === 0 ? (
+                            <EmptyState />
+                        ) : (
+                            <TransactionsTable transactions={transactions} readOnly={false} />
+                        )}
                     </main>
                 </div>
             </div>

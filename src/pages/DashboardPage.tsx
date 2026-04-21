@@ -6,6 +6,7 @@ import TransactionsTable from "../components/TransactionsTable.tsx";
 import SpendingBreakdown from "../components/SpendingBreakdown.tsx";
 import SpendingGraph from "../components/SpendingGraph.tsx";
 import type { TransactionsPageData } from "../utils/transactionsDataLoader.ts";
+import EmptyState from "../components/EmptyState.tsx";
 
 const DashboardPage = () => {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -36,12 +37,17 @@ const DashboardPage = () => {
 
                     <main className="flex-1 p-6 md:p-8 lg:p-10">
                         {/*<div className="h-full min-h-[70vh] rounded-4xl border border-dashed border-slate-300 bg-[repeating-linear-gradient(-45deg,rgba(148,163,184,0.08)_0px,rgba(148,163,184,0.08)_2px,transparent_2px,transparent_12px)] md:min-h-[calc(100vh-5rem)]" />*/}
-
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 mb-6 md:mb-8">
-                            <SpendingBreakdown />
-                            <SpendingGraph />
-                        </div>
-                        <TransactionsTable transactions={transactions} readOnly={true} />
+                        {transactions.length === 0 ? (
+                            <EmptyState />
+                        ) : (
+                            <div>
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 mb-6 md:mb-8">
+                                    <SpendingBreakdown />
+                                    <SpendingGraph />
+                                </div>
+                                <TransactionsTable transactions={transactions} readOnly={true} />
+                            </div>
+                        )}
                     </main>
                 </div>
             </div>
