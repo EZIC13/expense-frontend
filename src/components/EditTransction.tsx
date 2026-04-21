@@ -3,7 +3,7 @@ import { toast } from "react-hot-toast";
 import toastOptions from "../utils/toastOptions.ts";
 import { type NavigateFunction, useNavigate } from "react-router-dom";
 import type { Transaction, TransactionRequest } from "../models/transaction.ts";
-import { putRequest, UnauthorizedError } from "../services/RequestService.ts";
+import { deleteRequest, putRequest, UnauthorizedError } from "../services/RequestService.ts";
 
 interface EditTransactionProps {
     transaction: Transaction;
@@ -53,6 +53,25 @@ const EditTransaction = (props: EditTransactionProps) => {
         navigate("/transactions");
         return;
     };
+
+    const deleteTransaction = async ():Promise<void> => {
+        const toastId: string = toast.loading("Deleting Transaction", toastOptions);
+        try {
+            await deleteRequest(`/transactions/${props.transaction.id}`);
+        } catch (error) {
+            if (error instanceof UnauthorizedError) {
+                toast.error("Session expired. Please log in again", { id: toastId, ...toastOptions });
+                navigate("/login");
+                return;
+            }
+            toast.error("Unable to delete transaction", { id: toastId, ...toastOptions });
+            return;
+        }
+
+        toast.success("Successfully deleted transaction", { id: toastId, ...toastOptions });
+        navigate("/transactions");
+        return;
+    }
 
     return (
         <div className="border border-gray-200 rounded-lg p-4 md:p-6 bg-white">
@@ -106,7 +125,7 @@ const EditTransaction = (props: EditTransactionProps) => {
                         {/*Amount*/}
                         <div className="sm:col-span-4">
                             <label className="block text-sm font-medium text-cb-black">Amount</label>
-                            <div className=" mt-2 flex items-center rounded-md bg-white pl-3 outline-1 -outline-offset-1 outline-gray-300 has-[input:focus-within]:outline-2 has-[input:focus-within]:-outline-offset-2 has-[input:focus-within]:outline-indigo-600">
+                            <div className=" mt-2 flex items-center rounded-md bg-white pl-3 outline-1 -outline-offset-1 outline-gray-300 has-[input:focus-within]:outline-2 has-[input:focus-within]:-outline-offset-2 has-[input:focus-within]:outline-cb-blue">
                                 <div className="shrink-0 text-base text-gray-500 select-none sm:text-sm/6">$</div>
                                 <input value={amount} onChange={(e) => setAmount(e.target.value)} type="number" step="0.01" inputMode="decimal" required className="block min-w-0 grow py-1.5 pr-3 pl-1 text-base text-gray-900 placeholder:text-gray-400 focus:outline-none sm:text-sm/6"/>
                             </div>
@@ -115,10 +134,13 @@ const EditTransaction = (props: EditTransactionProps) => {
                 </div>
 
                 <div className="mt-6 flex items-center justify-end gap-x-6">
-                    <button type="button" className="text-sm/6 font-semibold text-gray-900">
+                    <button type="button" onClick={(): void => { navigate("/transactions"); }} className="text-sm/6 font-semibold text-gray-900">
                         Cancel
                     </button>
-                    <button type="submit" className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+                    <button type="button" onClick={deleteTransaction} className="rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-red-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cb-blue">
+                        Delete
+                    </button>
+                    <button type="submit" className="rounded-md bg-cb-blue px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-cb-blue-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cb-blue">
                         Save
                     </button>
                 </div>

@@ -53,3 +53,17 @@ export const putRequest = async <TBody>(endpoint: string, body: TBody):Promise<v
         throw new Error();
     }
 }
+
+export const deleteRequest = async (endpoint: string):Promise<void> => {
+    const response: Response = await fetch(BASE_URL + endpoint, {
+        method: "DELETE",
+        credentials: "include"
+    });
+
+    if (!response.ok) {
+        if (response.status === 401) {
+            throw new UnauthorizedError();
+        }
+        throw new Error();
+    }
+}
